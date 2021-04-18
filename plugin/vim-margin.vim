@@ -42,7 +42,7 @@ function! s:margins_resize_to(width)
     for bufnr in [s:lmargin_bufnr, s:rmargin_bufnr]
         if bufnr > 0
             execute bufwinnr(bufnr) . 'wincmd w'
-            execute 'vertical resize ' . a:width
+            execute 'vertical resize ' . (a:width - 1)
             execute winnr('#') . 'wincmd w'
         endif
     endfor
