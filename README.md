@@ -12,6 +12,11 @@ comfortable writing on a widescreen monitor in fullscreen vim, while being
 unobtrusive otherwise. The basics work, but it will likely exhibit strange 
 behaviour in others' workflows. However, pull requests are welcome!
 
+Add it to your `~/.vimrc` using, for example, 
+[vim-plug](https://github.com/junegunn/vim-plug):
+
+    Plug 'https://github.com/slakkenhuis/vim-margin'
+
 Related
 -------------------------------------------------------------------------------
 
