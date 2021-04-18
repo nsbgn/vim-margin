@@ -1,14 +1,18 @@
-margin.vim (work-in-progress)
+vim-margin
 ===============================================================================
 
-A small plugin to center your Vim windows if their width exceeds the 
+A small plugin to **center** your Vim windows if their width exceeds the 
 `&textwidth`. This plugin is similar to the excellent 
 [Goyo](https://github.com/junegunn/goyo.vim), but it is much simpler and it is 
-intended for those who always want to have it enabled --- not just for 
-distraction-free writing.
+intended to be enabled by default --- not just in situations where you want to 
+remove *all* distractions.
 
+This plugin is good enough to solve my **personal use case** --- that is, 
+comfortable writing on a widescreen monitor in fullscreen vim, while being 
+unobtrusive otherwise. The basics work, but it will likely exhibit strange 
+behaviour in others' workflows. However, pull requests are welcome!
 
-Similar
+Related
 -------------------------------------------------------------------------------
 
 -   [Goyo](https://github.com/junegunn/goyo.vim)
