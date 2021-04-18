@@ -1,11 +1,16 @@
 " exit when already loaded (or compatible mode set)
 if exists("g:loaded_margin") || &cp
-  finish
+    finish
 endif
 let s:keepcpo = &cpo
 set cpo&vim
 
 let g:margin_enabled=1
+
+" Hide lines between splits
+
+highlight VertSplit cterm=NONE gui=NONE
+set fillchars+=vert:\ 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -21,9 +26,11 @@ function! s:margin_calcwidth()
     return hmargin
 endfunction
 
+
 function! s:margin_create(create_command, repel_command)
     execute a:create_command
-    setlocal buftype=nofile bufhidden=wipe nomodifiable nobuflisted noswapfile winfixwidth
+    setlocal buftype=nofile bufhidden=wipe nomodifiable nobuflisted noswapfile winfixwidth nonumber
+    setlocal fillchars+=eob:\ 
     execute 'autocmd WinEnter,CursorMoved <buffer> execute "' a:repel_command '"'
     let bufnr = winbufnr(0)
     execute winnr('#') . 'wincmd w'
@@ -73,8 +80,8 @@ endfunction
 
 if g:margin_enabled == 1
     augroup margin
-    autocmd VimEnter,OptionSet,VimResized * :call s:margins_recalc()
-    autocmd QuitPre :call s:margins_delete()
+    autocmd VimEnter,VimResized * :call s:margins_recalc()
+    autocmd QuitPre * :call s:margins_delete()
     augroup END
 endif
 
