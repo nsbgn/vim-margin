@@ -12,7 +12,7 @@ let g:margin_enabled=1
 highlight VertSplit cterm=NONE gui=NONE
 set fillchars+=vert:\ 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Buffer numbers of the margins --- no margin buffers exist at the start yet
 let s:lmargin_bufnr=-1
@@ -20,9 +20,10 @@ let s:rmargin_bufnr=-1
 
 " Calculate *current* preferred width of the margin based on textwidth
 function! s:margin_calcwidth()
-    let nwidth  = max([len(string(line('$'))) + 1, &numberwidth])
-    let width   = &textwidth + (&number ? nwidth : 0)
-    let hmargin = max([0, (&columns - width) / 2 - 1])
+    let numwidth  = max([len(string(line('$'))) + 1, &numberwidth])
+    let signwidth = 2
+    let width     = &textwidth + (&number ? numwidth : 0) + signwidth
+    let hmargin   = max([0, (&columns - width) / 2 - 1])
     return hmargin
 endfunction
 
@@ -70,7 +71,7 @@ endfunction
 
 function! s:margins_recalc()
     let l:width = s:margin_calcwidth()
-    if l:width > 0
+    if l:width > 1
         call s:margins_create_if_necessary()
         call s:margins_resize_to(l:width)
     else
