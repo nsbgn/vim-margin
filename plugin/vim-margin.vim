@@ -6,6 +6,7 @@ let s:keepcpo = &cpo
 set cpo&vim
 
 let g:margin_enabled=1
+let g:margin_default_textwidth=79
 let s:lmargin_bufnr=-1
 let s:rmargin_bufnr=-1
 
@@ -13,8 +14,13 @@ let s:rmargin_bufnr=-1
 function! s:margin_calcwidth()
     let numwidth  = max([len(string(line('$'))) + 1, &numberwidth])
     let signwidth = 2
-    let width     = &textwidth + (&number ? numwidth : 0) + signwidth
-    let hmargin   = max([0, (&columns - width) / 2 - 1])
+    if &textwidth
+        let textwidth = &textwidth
+    else
+        let textwidth = g:margin_default_textwidth
+    endif
+    let winwidth = textwidth + (&number ? numwidth : 0) + signwidth
+    let hmargin = max([0, (&columns - winwidth) / 2 - 1])
     return hmargin
 endfunction
 
