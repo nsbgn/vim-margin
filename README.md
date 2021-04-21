@@ -7,15 +7,32 @@ A small plugin to **center** your Vim windows if their width exceeds the
 intended to be enabled by default --- not just in situations where you want to 
 remove *all* distractions.
 
-This plugin is good enough to solve my **personal use case** --- that is, 
-comfortable writing on a widescreen monitor in fullscreen vim, while being 
-unobtrusive otherwise. The basics work, but it will likely exhibit strange 
-behaviour in others' workflows. However, pull requests are welcome!
+This plugin is good enough to solve my **personal use case**: comfortable 
+writing on a widescreen monitor in fullscreen, while being unobtrusive 
+otherwise. Although the basics work, it will likely exhibit strange behaviour 
+in others' workflows. Pull requests are welcome!
 
 Add it to your `~/.vimrc` using, for example, 
 [vim-plug](https://github.com/junegunn/vim-plug):
 
     Plug 'https://github.com/slakkenhuis/vim-margin'
+
+If you use this plugin, you will likely want to have more subtle dividers 
+between splits:
+
+    highlight VertSplit cterm=NONE ctermfg=gray
+
+... or hide them completely:
+
+    highlight VertSplit cterm=NONE
+    set fillchars+=vert:\ 
+
+
+Usage
+-------------------------------------------------------------------------------
+
+After installation, the margin will be active by default.
+
 
 Related
 -------------------------------------------------------------------------------

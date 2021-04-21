@@ -7,11 +7,6 @@ set cpo&vim
 
 let g:margin_enabled=1
 
-" Hide lines between splits
-
-highlight VertSplit cterm=NONE gui=NONE
-set fillchars+=vert:\ 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Buffer numbers of the margins --- no margin buffers exist at the start yet
