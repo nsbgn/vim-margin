@@ -31,7 +31,14 @@ between splits:
 Usage
 -------------------------------------------------------------------------------
 
-After installation, the margin will be active by default.
+After installation, the margin will be active by default. If this is not 
+desired, add the following to your `.vimrc` after loading the plugin:
+
+    let g:margin_enabled=1
+
+To toggle the margins:
+
+    :Margin
 
 
 Related

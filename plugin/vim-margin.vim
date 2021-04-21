@@ -6,10 +6,6 @@ let s:keepcpo = &cpo
 set cpo&vim
 
 let g:margin_enabled=1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Buffer numbers of the margins --- no margin buffers exist at the start yet
 let s:lmargin_bufnr=-1
 let s:rmargin_bufnr=-1
 
@@ -22,7 +18,7 @@ function! s:margin_calcwidth()
     return hmargin
 endfunction
 
-
+" Create margin and return its buffer number
 function! s:margin_create(create_command, repel_command)
     execute a:create_command
     setlocal buftype=nofile bufhidden=wipe nomodifiable nobuflisted noswapfile winfixwidth nonumber
@@ -44,15 +40,16 @@ function! s:margins_resize_to(width)
 endfunction
 
 function! s:margins_delete()
-    for bufnr in [s:lmargin_bufnr, s:rmargin_bufnr]
-        if bufnr > 0
+    "let win = winnr()
+    for bufnr in [s:rmargin_bufnr, s:lmargin_bufnr]
+        if bufnr >= 0
             execute bufwinnr(bufnr) . 'wincmd w'
             execute 'wincmd q'
-            " execute winnr('#') . 'wincmd w'
         endif
     endfor
     let s:rmargin_bufnr=-1
     let s:lmargin_bufnr=-1
+    "execute win . 'wincmd w'
 endfunction
 
 function! s:margins_create_if_necessary()
@@ -65,24 +62,32 @@ function! s:margins_create_if_necessary()
 endfunction
 
 function! s:margins_recalc()
-    let l:width = s:margin_calcwidth()
-    if l:width > 1
-        call s:margins_create_if_necessary()
-        call s:margins_resize_to(l:width)
-    else
+    if g:margin_enabled == 0
         call s:margins_delete()
+    else
+        let l:width = s:margin_calcwidth()
+        if l:width > 1
+            call s:margins_create_if_necessary()
+            call s:margins_resize_to(l:width)
+        else
+            call s:margins_delete()
+        endif
     endif
 endfunction
 
-if g:margin_enabled == 1
-    augroup margin
-    autocmd VimEnter,VimResized * :call s:margins_recalc()
-    autocmd QuitPre * :call s:margins_delete()
-    augroup END
-endif
+function! s:margins_toggle()
+    let g:margin_enabled=!g:margin_enabled
+    " call s:margins_recalc() does not work, so just trigger a resize instead
+    " until I find out why
+    doautocmd VimResized
+endfunction
 
-command! MarginReset :call s:margins_recalc()
+augroup margin
+autocmd VimEnter,VimResized * :call s:margins_recalc()
+autocmd QuitPre * :call s:margins_delete()
+augroup END
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+command! Margin :call s:margins_toggle()
+
 let &cpo= s:keepcpo
 unlet s:keepcpo
